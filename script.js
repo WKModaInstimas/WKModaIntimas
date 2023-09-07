@@ -3,8 +3,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
     openTab('Lingerie');
     attachEventListeners();
 });
-
 let produtosCarrinho = [];
+function openTab(tabName) {
+    let tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+}
+function attachEventListeners() {
+    const comprarButtons = document.querySelectorAll('.comprar');
+    comprarButtons.forEach(button => {
+        button.addEventListener('click', adicionarProduto);
+    });
+    const carrinho = document.querySelector('.carrinho');
+    carrinho.addEventListener('click', event => {
+        if (event.target.classList.contains('remover')) {
+            removerProduto.call(event.target);
+        } else if (event.target.classList.contains('comprarCarrinho')) {
+            enviarMensagemWhatsApp();
+        }
+    });
+    carrinho.addEventListener('change', event => {
+        if (event.target.tagName === 'INPUT') {
+            alterarQuantidade.call(event.target);
+        }
+    });
+}
+
+// Função para exibir a imagem grande ao clicar na imagem do produto
+function attachImageClickEvent() {
     const imagensProduto = document.querySelectorAll('.imagem-produto');
 
     imagensProduto.forEach(imagemProduto => {
@@ -28,39 +56,7 @@ let produtosCarrinho = [];
             });
         });
     });
-} 
-
-function openTab(tabName) {
-    let tabcontent = document.getElementsByClassName("tabcontent");
-    for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    document.getElementById(tabName).style.display = "block";
 }
-
-function attachEventListeners() {
-    const comprarButtons = document.querySelectorAll('.comprar');
-    comprarButtons.forEach(button => {
-        button.addEventListener('click', adicionarProduto);
-    });
-
-    const carrinho = document.querySelector('.carrinho');
-    carrinho.addEventListener('click', event => {
-        if (event.target.classList.contains('remover')) {
-            removerProduto.call(event.target);
-        } else if (event.target.classList.contains('comprarCarrinho')) {
-            enviarMensagemWhatsApp();
-        }
-    });
-
-    carrinho.addEventListener('change', event => {
-        if (event.target.tagName === 'INPUT') {
-            alterarQuantidade.call(event.target);
-        }
-    });
-}
-
-
 
 function adicionarProduto() {
     const nome = this.dataset.nome;
@@ -68,9 +64,7 @@ function adicionarProduto() {
     const produtoElement = this.closest('.produto');
     const tamanho = produtoElement.querySelector('.size-selection select').value;
     const cor = produtoElement.querySelector('.color-selection select').value;
-
     const produtoExistente = produtosCarrinho.find(produto => produto.nome === nome && produto.tamanho === tamanho && produto.cor === cor);
-
     if (produtoExistente) {
         produtoExistente.quantidade++;
     } else {
@@ -85,36 +79,29 @@ function adicionarProduto() {
     saveToLocalStorage();
     atualizarCarrinho();
 }
-
 function removerProduto() {
     const nome = this.dataset.nome;
     const tamanho = this.dataset.tamanho;
     const cor = this.dataset.cor;
     produtosCarrinho = produtosCarrinho.filter(produto => !(produto.nome === nome && produto.tamanho === tamanho && produto.cor === cor));
-
     saveToLocalStorage();
     atualizarCarrinho();
 }
-
 function alterarQuantidade() {
     const nome = this.parentNode.parentNode.querySelector('span:first-child').textContent;
     const quantidade = parseInt(this.value);
     const produtoExistente = produtosCarrinho.find(produto => produto.nome === nome);
     produtoExistente.quantidade = quantidade;
-
     saveToLocalStorage();
     atualizarCarrinho();
 }
-
 function atualizarCarrinho() {
     const carrinho = document.querySelector('.carrinho ul');
     carrinho.innerHTML = '';
-
     if (produtosCarrinho.length === 0) {
         carrinho.innerHTML = '<li>O carrinho está vazio.</li>';
         return;
     }
-
     produtosCarrinho.forEach(produto => {
         const item = document.createElement('li');
         item.innerHTML = `
@@ -127,7 +114,6 @@ function atualizarCarrinho() {
         `;
         carrinho.appendChild(item);
     });
-
     if (!document.querySelector('.comprarCarrinho')) {
         const botaoComprarCarrinho = document.createElement('button');
         botaoComprarCarrinho.textContent = 'Comprar Itens Selecionados';
@@ -144,15 +130,12 @@ function enviarMensagemWhatsApp() {
     produtosCarrinho.forEach(produto => {
         mensagem += `${produto.nome} - R$ ${produto.preco}\nQuantidade: ${produto.quantidade}\nTamanho: ${produto.tamanho}\nCor: ${produto.cor}\n\n`;
     });
-
     mensagem = encodeURIComponent(mensagem);
     window.open(`https://wa.me/556791910977?text=${mensagem}`);
 }
-
 function saveToLocalStorage() {
     localStorage.setItem('carrinho', JSON.stringify(produtosCarrinho));
 }
-
 function loadFromLocalStorage() {
     if (localStorage.getItem('carrinho')) {
         produtosCarrinho = JSON.parse(localStorage.getItem('carrinho'));
