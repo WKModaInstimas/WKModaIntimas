@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 // Função para exibir a imagem grande ao clicar na imagem do produto
 function attachImageClickEvent() {
-
 let produtosCarrinho = [];
 
 // Função para exibir a imagem grande ao clicar na imagem do produto
