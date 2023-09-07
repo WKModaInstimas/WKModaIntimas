@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     loadFromLocalStorage();
     openTab('Lingerie');
     attachEventListeners();
+	attachImageClickEvent();
 });
 
 let produtosCarrinho = [];
