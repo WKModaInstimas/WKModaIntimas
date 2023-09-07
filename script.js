@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 let produtosCarrinho = [];
+
     const imagensProduto = document.querySelectorAll('.imagem-produto');
 
     imagensProduto.forEach(imagemProduto => {
