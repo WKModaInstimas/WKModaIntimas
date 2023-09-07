@@ -36,6 +36,33 @@ function attachEventListeners() {
     });
 }
 
+// Função para exibir a imagem grande ao clicar na imagem do produto
+function attachImageClickEvent() {
+    const imagensProduto = document.querySelectorAll('.imagem-produto');
+
+    imagensProduto.forEach(imagemProduto => {
+        imagemProduto.addEventListener('click', () => {
+            const imagemClicada = imagemProduto;
+
+            const painel = document.createElement('div');
+            painel.classList.add('painel-imagem');
+
+            const imagemGrande = document.createElement('img');
+            imagemGrande.src = imagemClicada.src;
+            imagemGrande.alt = 'Imagem Grande';
+            imagemGrande.classList.add('imagem-grande');
+
+            painel.appendChild(imagemGrande);
+
+            document.body.appendChild(painel);
+
+            painel.addEventListener('click', () => {
+                painel.remove();
+            });
+        });
+    });
+}
+
 function adicionarProduto() {
     const nome = this.dataset.nome;
     const preco = this.dataset.preco;
@@ -108,6 +135,9 @@ function atualizarCarrinho() {
         botaoComprarCarrinho.classList.add('comprarCarrinho');
         carrinho.appendChild(botaoComprarCarrinho);
     }
+
+    // Adiciona a funcionalidade para exibir a imagem grande ao clicar na imagem do produto
+    attachImageClickEvent();
 }
 
 function enviarMensagemWhatsApp() {
