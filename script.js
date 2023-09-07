@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     openTab('Lingerie');
     attachEventListeners();
 });
-// Função para exibir a imagem grande ao clicar na imagem do produto
-function attachImageClickEvent() {
 
 let produtosCarrinho = [];
 
@@ -107,7 +105,7 @@ function atualizarCarrinho() {
                 <input type="number" value="${produto.quantidade}" min="1">
                 <button class="remover" data-nome="${produto.nome}" data-tamanho="${produto.tamanho}" data-cor="${produto.cor}">Remover</button>
             </span>
-        ;
+        `;
         carrinho.appendChild(item);
     });
     if (!document.querySelector('.comprarCarrinho')) {
