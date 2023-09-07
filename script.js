@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 let produtosCarrinho = [];
 
-// Função para exibir a imagem grande ao clicar na imagem do produto
-function attachImageClickEvent() {
+function saveToLocalStorage() {
+    localStorage.setItem('carrinho', JSON.stringify(produtosCarrinho));
+}
     const imagensProduto = document.querySelectorAll('.imagem-produto');
 
     imagensProduto.forEach(imagemProduto => {
