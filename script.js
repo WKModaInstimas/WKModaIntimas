@@ -139,10 +139,6 @@ function atualizarCarrinho() {
         carrinho.appendChild(botaoComprarCarrinho);
     }
 
-    // Adiciona a funcionalidade para exibir a imagem grande ao clicar na imagem do produto
-    attachImageClickEvent();
-}
-
 function enviarMensagemWhatsApp() {
     let mensagem = 'Olá, eu gostaria de comprar os seguintes itens:\n\n';
     produtosCarrinho.forEach(produto => {
