@@ -3,7 +3,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     openTab('Lingerie');
     attachEventListeners();
 });
+// Função para exibir a imagem grande ao clicar na imagem do produto
+function attachImageClickEvent() {
+
 let produtosCarrinho = [];
+
+// Função para exibir a imagem grande ao clicar na imagem do produto
+function attachImageClickEvent() {
+    const imagensProduto = document.querySelectorAll('.imagem-produto');
+    imagensProduto.forEach(imagemProduto => {
+        imagemProduto.addEventListener('click', () => {
+            const imagemClicada = imagemProduto;
+            const painel = document.createElement('div');
+            painel.classList.add('painel-imagem');
+            const imagemGrande = document.createElement('img');
+            imagemGrande.src = imagemClicada.src;
+            imagemGrande.alt = 'Imagem Grande';
+            imagemGrande.classList.add('imagem-grande');
+            painel.appendChild(imagemGrande);
+            document.body.appendChild(painel);
+            painel.addEventListener('click', () => {
+                painel.remove();
+            });
+        });
+    });
+} 
 function openTab(tabName) {
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
@@ -30,34 +54,6 @@ function attachEventListeners() {
         }
     });
 }
-
-// Função para exibir a imagem grande ao clicar na imagem do produto
-function attachImageClickEvent() {
-    const imagensProduto = document.querySelectorAll('.imagem-produto');
-
-    imagensProduto.forEach(imagemProduto => {
-        imagemProduto.addEventListener('click', () => {
-            const imagemClicada = imagemProduto;
-
-            const painel = document.createElement('div');
-            painel.classList.add('painel-imagem');
-
-            const imagemGrande = document.createElement('img');
-            imagemGrande.src = imagemClicada.src;
-            imagemGrande.alt = 'Imagem Grande';
-            imagemGrande.classList.add('imagem-grande');
-
-            painel.appendChild(imagemGrande);
-
-            document.body.appendChild(painel);
-
-            painel.addEventListener('click', () => {
-                painel.remove();
-            });
-        });
-    });
-}
-
 function adicionarProduto() {
     const nome = this.dataset.nome;
     const preco = this.dataset.preco;
@@ -111,7 +107,7 @@ function atualizarCarrinho() {
                 <input type="number" value="${produto.quantidade}" min="1">
                 <button class="remover" data-nome="${produto.nome}" data-tamanho="${produto.tamanho}" data-cor="${produto.cor}">Remover</button>
             </span>
-        `;
+        ;
         carrinho.appendChild(item);
     });
     if (!document.querySelector('.comprarCarrinho')) {
@@ -120,11 +116,9 @@ function atualizarCarrinho() {
         botaoComprarCarrinho.classList.add('comprarCarrinho');
         carrinho.appendChild(botaoComprarCarrinho);
     }
-
     // Adiciona a funcionalidade para exibir a imagem grande ao clicar na imagem do produto
     attachImageClickEvent();
 }
-
 function enviarMensagemWhatsApp() {
     let mensagem = 'Olá, eu gostaria de comprar os seguintes itens:\n\n';
     produtosCarrinho.forEach(produto => {
