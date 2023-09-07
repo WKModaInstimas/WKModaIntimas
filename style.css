@@ -398,3 +398,14 @@ footer p {
     cursor: pointer;
 }
 
+.estrelas {
+    font-size: 24px; /* Ajuste o tamanho conforme necessário */
+    color: gold; /* Cor das estrelas */
+}
+
+.recomendado {
+    font-weight: bold; /* Estilo de fonte em negrito */
+    color: green; /* Cor do texto de recomendação */
+    margin-top: 5px; /* Espaçamento superior para separar das estrelas */
+}
+
