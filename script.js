@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     openTab('Lingerie');
     attachEventListeners();
 });
-   
+
 let produtosCarrinho = [];
 
     const imagensProduto = document.querySelectorAll('.imagem-produto');
@@ -135,6 +135,10 @@ function atualizarCarrinho() {
         botaoComprarCarrinho.classList.add('comprarCarrinho');
         carrinho.appendChild(botaoComprarCarrinho);
     }
+
+    // Adiciona a funcionalidade para exibir a imagem grande ao clicar na imagem do produto
+    attachImageClickEvent();
+}
 
 function enviarMensagemWhatsApp() {
     let mensagem = 'Olá, eu gostaria de comprar os seguintes itens:\n\n';
