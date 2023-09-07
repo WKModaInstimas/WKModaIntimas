@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     openTab('Lingerie');
     attachEventListeners();
 });
+// Função para exibir a imagem grande ao clicar na imagem do produto
+function attachImageClickEvent() {
 
 let produtosCarrinho = [];
 
